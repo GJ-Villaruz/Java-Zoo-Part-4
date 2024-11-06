@@ -1,0 +1,86 @@
+public class ZooAnimal {//JAVAZOO4
+    private String name;
+    private String type;
+    private int age;
+    private boolean hungry;
+    protected static int animalCounter = 0;  // Static variable to count animals
+
+    // Constructor
+    public ZooAnimal(String name, String type, int age, boolean hungry) {
+        this.name = name;
+        this.type = type;
+        this.age = age;
+        this.hungry = hungry;
+        animalCounter++;  // Increment animalCounter each time a new ZooAnimal is created
+    }
+
+    public void setName(String name) { this.name = name; }
+    public String getName() { return name; }
+    public void setType(String type) { this.type = type; }
+    public String getType() { return type; }
+    public void setAge(int age) { this.age = age; }
+    public int getAge() { return age; }
+    public void setHungry(boolean hungry) { this.hungry = hungry; }
+    public boolean isHungry() { return hungry; }
+
+    public void eat(String food) {
+        if (hungry) {
+            System.out.println(name + " is eating " + food);
+            hungry = false;
+        } else {
+            System.out.println(name + " is not hungry.");
+            
+        }
+    }
+
+    // Static method to get the animal count
+    public static int getAnimalCounter() {
+        return animalCounter;
+    }
+}
+
+class Dolphin extends ZooAnimal {
+    private String trick;
+
+    // Constructor with parameters for name, type, age, hungry, and trick
+    public Dolphin(String name, String type, int age, boolean hungry, String trick) {
+        super(name, type, age, hungry);
+        this.trick = trick;
+    }
+
+    // performTrick() method
+    public void performTrick() {
+        System.out.println(getName() + " is performing a " + trick);
+        System.out.println();
+    }
+
+    // Override the eat() method
+    @Override
+    public void eat(String food) {
+        setHungry(false);  // Set isHungry to false (assuming a public setter in ZooAnimal)
+        System.out.println("Dolphins eat lots of fish. " + getName() + " is eating " + food + "...");
+        System.out.println();
+    }
+}
+
+class JavaZoo {
+    private static String zooName = "Java Park n Zoo";
+
+    public static void main(String[] args) {
+        // Instantiate ZooAnimal and Dolphin objects
+        ZooAnimal lion = new ZooAnimal("Leo", "Lion", 5, true);
+        Dolphin dolphin = new Dolphin("Peter", "Dolphin", 2, true, "flip");
+
+        // Call the eat() method for each
+        lion.eat("zooFOOD");
+        System.out.println();
+        dolphin.eat("zooFISH");
+
+        // Call the performTrick() method for the Dolphin
+        dolphin.performTrick();
+
+        // Display animal counter
+        System.out.println("There are " + ZooAnimal.getAnimalCounter() + " animals in the JavaZoo.");
+        System.out.println();
+    }
+}
